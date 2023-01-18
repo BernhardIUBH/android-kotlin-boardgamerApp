@@ -11,7 +11,7 @@ class DB_class(context: Context): SQLiteOpenHelper(context,DATABASE_NAME,null,DA
     override fun onCreate(db: SQLiteDatabase?) {
         //Erstelle TBL_USER
         db?.execSQL("CREATE TABLE TBL_USER(USER_ID INTEGER PRIMARY KEY AUTOINCREMENT, USERNAME TEXT UNIQUE, PWD TEXT, GRP TEXT, TELNR TEXT)")
-        db?.execSQL("INSERT INTO TBL_USER(USERNAME, PWD, GRP, TELNR) VALUES ('Max', '', 'group1', '++43 111111111')")
+        db?.execSQL("INSERT INTO TBL_USER(USERNAME, PWD, GRP, TELNR) VALUES ('Max', '', 'group1', '+43 111111111')")
         db?.execSQL("INSERT INTO TBL_USER(USERNAME, PWD, GRP, TELNR) VALUES ('Lisa', '123', 'group1', '+49 222222222')")
         db?.execSQL("INSERT INTO TBL_USER(USERNAME, PWD, GRP, TELNR) VALUES ('Johan', '', 'group1', '+43 333333333')")
         db?.execSQL("INSERT INTO TBL_USER(USERNAME, PWD, GRP, TELNR) VALUES ('Anna', '', 'group1', '+49 444444444')")

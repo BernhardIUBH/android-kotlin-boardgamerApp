@@ -41,7 +41,7 @@ class SignInActivity : AppCompatActivity() {
         }
     }
     override fun onBackPressed() {
-        moveTaskToBack(true);
+        moveTaskToBack(true)
         exitProcess(-1)
     }
 }

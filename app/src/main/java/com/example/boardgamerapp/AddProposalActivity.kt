@@ -12,16 +12,16 @@ class AddProposalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_proposal)
         val btnAddProposalActivity = findViewById<Button>(R.id.btnAddProposal)
-        val user_input_game_name = findViewById<TextView>(R.id.etProposal)
+        val userInputGameName = findViewById<TextView>(R.id.etProposal)
         val tabellenname = intent.getStringExtra("TABELLENNAME")
         val dbhelper = DB_class(applicationContext)
         val db = dbhelper.readableDatabase
 
         btnAddProposalActivity.setOnClickListener{
-            db?.execSQL("INSERT INTO $tabellenname(GAME_NAME) VALUES ('${user_input_game_name.text}')")
+            db?.execSQL("INSERT INTO $tabellenname(GAME_NAME) VALUES ('${userInputGameName.text}')")
             Toast.makeText(
                 this@AddProposalActivity,
-                " '${user_input_game_name.text}' wurde hinzugefügt",
+                " '${userInputGameName.text}' wurde hinzugefügt",
                 Toast.LENGTH_LONG
             ).show()
         }

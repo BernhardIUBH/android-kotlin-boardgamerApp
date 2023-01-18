@@ -13,7 +13,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class RatingHostActivity : AppCompatActivity() {
-    @SuppressLint("Range")
+    @SuppressLint("Range", "Recycle")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rating_host)
@@ -30,10 +30,10 @@ class RatingHostActivity : AppCompatActivity() {
         val formatDate = DateTimeFormatter.ofPattern("dd.MM.yyyy")
         val prevGrpGameId = (grpGameId?.toInt())?.minus(1)
         val tvVoterTurnout = findViewById<TextView>(R.id.tvVoterTurnout)
-        var rbResult = findViewById<RatingBar>(R.id.rbResult)
-        var rbRatingHostHost = findViewById<RatingBar>(R.id.rbRatingHostEvent)
-        var rbRatingHostFood = findViewById<RatingBar>(R.id.rbRatingHostHost)
-        var rbRatingHostEvent = findViewById<RatingBar>(R.id.rbRatingHostFood)
+        val rbResult = findViewById<RatingBar>(R.id.rbResult)
+        val rbRatingHostHost = findViewById<RatingBar>(R.id.rbRatingHostEvent)
+        val rbRatingHostFood = findViewById<RatingBar>(R.id.rbRatingHostHost)
+        val rbRatingHostEvent = findViewById<RatingBar>(R.id.rbRatingHostFood)
         val btnAddRating = findViewById<Button>(R.id.btnAddRating)
         var flagUserVoted = 1
         var totalVoters = ""
@@ -95,7 +95,7 @@ class RatingHostActivity : AppCompatActivity() {
             rbRatingHostHost.setIsIndicator((true))
             rbRatingHostFood.setIsIndicator((true))
             rbRatingHostEvent.setIsIndicator((true))
-            btnAddRating.setVisibility(View.GONE);
+            btnAddRating.setVisibility(View.GONE)
         }
         //Container Bewertung abgeben
         btnAddRating.setOnClickListener {

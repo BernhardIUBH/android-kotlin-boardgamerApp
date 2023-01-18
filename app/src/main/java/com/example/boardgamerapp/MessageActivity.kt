@@ -8,10 +8,8 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 
 class MessageActivity : AppCompatActivity() {
     @SuppressLint("Range")
@@ -23,10 +21,9 @@ class MessageActivity : AppCompatActivity() {
         val db = dbhelper.readableDatabase
         val userId = intent.getStringExtra("USER_ID")
         val group = intent.getStringExtra("GROUP")
-        var etMsg = findViewById<TextView>(R.id.etMessage)
+        val etMsg = findViewById<TextView>(R.id.etMessage)
         val btnSend = findViewById<Button>(R.id.btnSendMessage)
-        var mapUserIdTel = mutableMapOf<Int, String>()
-        var amountUsers = 0
+        val mapUserIdTel = mutableMapOf<Int, String>()
 
         //Text - Vorlage
         etMsg.text = "Hi ich werde mich heute leider etwas verspäten!"
@@ -34,11 +31,11 @@ class MessageActivity : AppCompatActivity() {
         //Erstelle Map mit User_IDs und TelNr der anderen Gruppenteilnehmer
         val query = "SELECT * FROM TBL_USER WHERE GRP= '$group'"
         val rs = db.rawQuery(query, null)
-        amountUsers = rs.count
+        val amountUsers = rs.count
         rs.moveToNext()
         for (x in 1..amountUsers) {
-            var usrId = rs.getInt(rs.getColumnIndex("USER_ID"))
-            var telnr = rs.getString(rs.getColumnIndex("TELNR"))
+            val usrId = rs.getInt(rs.getColumnIndex("USER_ID"))
+            val telnr = rs.getString(rs.getColumnIndex("TELNR"))
             mapUserIdTel.put(usrId, telnr)
             rs.moveToNext()
         }
@@ -66,6 +63,11 @@ class MessageActivity : AppCompatActivity() {
             context.startActivity(intent)
         } catch (ex : ActivityNotFoundException){
             //whatsapp nicht Installiert
+            Toast.makeText(
+                this@MessageActivity,
+                "WhatsApp auf diesem Gerät nicht installiert",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 }

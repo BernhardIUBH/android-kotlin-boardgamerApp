@@ -24,19 +24,19 @@ class   ProposalAndVoteActivity : AppCompatActivity() {
         val fabAddProposal = findViewById<FloatingActionButton>(R.id.fabAddProposal)
 
 
-        var tabellenname = "TBL_${group.toString().uppercase()}_GAME${gameId}"
-        var query = "SELECT * FROM $tabellenname "
-        var rs = db.rawQuery(query, null)
+        val tabellenname = "TBL_${group.toString().uppercase()}_GAME${gameId}"
+        val query = "SELECT * FROM $tabellenname "
+        val rs = db.rawQuery(query, null)
         rs.moveToLast()
         val amountRows = rs.getInt(rs.getColumnIndex("PROP_ID"))
         //val list = ArrayList<String>()
-        var proposalList = listOf<RecyclerViewEntry>()
+        val proposalList = mutableListOf<RecyclerViewEntry>()
         for (x in 0..amountRows) {
             if (rs.moveToPosition(x)) {
-                var game_name = rs.getString(rs.getColumnIndex("GAME_NAME"))
-                var rating = rs.getInt(rs.getColumnIndex("RATING"))
+                val gameName = rs.getString(rs.getColumnIndex("GAME_NAME"))
+                val rating = rs.getInt(rs.getColumnIndex("RATING"))
                 //list.add("$amountRows $game_name + $rating")
-                proposalList += RecyclerViewEntry(game_name, rating)
+                proposalList += RecyclerViewEntry(gameName, rating)
             }
         }
         rs.close()
@@ -62,12 +62,12 @@ class   ProposalAndVoteActivity : AppCompatActivity() {
         userId: String?) {
         //Prüfen ob bereits abgestimmt wurde
         val tabellenname_rating_completed = tabellenname.plus("_RATING_COMPLETED")
-        var query = "SELECT * FROM $tabellenname_rating_completed WHERE USER_ID== $userId AND RATING_GAME_COMPLETED=='FALSE' "
-        var rs = db.rawQuery(query,null)
+        val query = "SELECT * FROM $tabellenname_rating_completed WHERE USER_ID== $userId AND RATING_GAME_COMPLETED=='FALSE' "
+        val rs = db.rawQuery(query,null)
         if(rs.moveToNext()) {
             //Aktuelisieren des Wertes in der Datenbank
-                db?.execSQL("UPDATE $tabellenname SET RATING=RATING+1 WHERE GAME_NAME=='${RecyclerViewEntry.game_name}' ")
-                db?.execSQL("UPDATE $tabellenname_rating_completed SET RATING_GAME_COMPLETED='TRUE' WHERE USER_ID== $userId ")
+                db.execSQL("UPDATE $tabellenname SET RATING=RATING+1 WHERE GAME_NAME=='${RecyclerViewEntry.game_name}' ")
+                db.execSQL("UPDATE $tabellenname_rating_completed SET RATING_GAME_COMPLETED='TRUE' WHERE USER_ID== $userId ")
             rs.close()
             startActivity(getIntent())
         }
